@@ -1,5 +1,5 @@
 <?php
-  include "variables.php";
+  include_once "variables.php";
   $page_title = $website_name;
   $active = isset($active) ? $active : "";
 
@@ -23,15 +23,27 @@
   <body>
     <header class="ui primary menu pointing" style="border-radius: 0; margin-bottom: 0">
       <div class="ui container">
-        <a href="<?php echo $website_base; ?>" class="item <?php echo $active === 'home' ? 'active' : '' ?>">Home</a>
+        <a href="<?php echo $website_base; ?>" class="item <?php echo $active === 'home' ? 'active' : '' ?> ">
+          <i class="home icon"></i>
+          <span class="hide-on-mobile">Home</span>
+        </a>
+        <?php if ($is_logged_in) { ?>
+          <form class="item" action="<?php echo $website_base ?>/search.php" method="get" style="flex: 4">
+            <div class="ui icon input">
+              <i class="search icon"></i>
+              <input type="text" name="search_query" placeholder="search..." value="" style="border: none;">
+            </div>
+          </form>
+        <?php } ?>
         <div class="right menu">
           <?php if (!$is_logged_in) { ?>
             <a href="<?php echo $website_base ?>/signup.php" class="item <?php echo $active === 'signup' ? 'active' : '' ?>">Signup</a>
             <a href="<?php echo $website_base ?>/login.php" class="item <?php echo $active === 'login' ? 'active' : '' ?>">Login</a>
         <?php } else { ?>
           <div class="item ui dropdown">
-            <div class="text">Account</div>
-            <i class="dropdown icon"></i>
+            <div class="text hide-on-mobile">Account</div>
+            <i class="dropdown icon hide-on-mobile"></i>
+            <i class="user icon show-on-mobile"></i>
             <div class="menu">
               <a href="<?php echo $website_base."/users/profile.php?user_id=".$user['id'] ?>" class="item">
                 <i class="icon user"></i>
@@ -45,13 +57,12 @@
           </div>
           <a href="<?php echo $website_base ?>/logout.php" class="item">
             <i class="icon sign-out"></i>
-            Logout
+            <span class="hide-on-mobile">Logout</span>
           </a>
         <?php } ?>
         </div>
       </div>
     </header>
-    <?php if (!isset($no_container)) {
-      echo '<div class="ui container">';
-    }
-    ?>
+    <?php if (!isset($no_container)) { ?>
+      <div class="ui container <?php echo isset($container_classes) ? $container_classes : '' ?>">'
+    <?php } ?>

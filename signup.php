@@ -1,6 +1,6 @@
 <?php
-include "variables.php";
-include "functions.php";
+include_once "variables.php";
+include_once "functions.php";
 if ($is_logged_in) {
   header("Location: $website_base");
 }
@@ -84,7 +84,7 @@ if (isset($_POST["submit"])) {
 
 $title = "Signup for an account";
 $active = "signup";
-include "header.php";
+include_once "header.php";
 
 ?>
 <form class="ui form auth-form" action="signup.php" method="post">
@@ -144,4 +144,4 @@ include "header.php";
   <?php } ?>
 </form>
 
-<?php include 'footer.php'; ?>
+<?php include_once 'footer.php'; ?>

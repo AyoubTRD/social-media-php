@@ -26,8 +26,9 @@ include "../header.php";
 
 <div class="block bg-gray-700 cover" style="
    height: 550px;
+   max-height: 70vh;
    <?php if ($profile['cover']) {
-      echo 'background-image: url('.$profile['cover'].')';
+      echo 'background-image: url('.$profile['cover'].');';
     } ?>;
     background-size: cover;
 ">

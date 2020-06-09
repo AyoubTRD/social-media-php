@@ -1,4 +1,5 @@
 <?php
+  include_once "functions.php";
   if (!$is_logged_in) {
     header("Location: $website_base");
   }
@@ -31,11 +32,7 @@
         </div>
       <?php } ?>
       <div class="label pt-4">
-        <img src="<?php if ($post['avatar']) {
-          echo $post['avatar'];
-        } else {
-          echo 'https://avatars.dicebear.com/api/initials/'.$post['name'][0].'.svg';
-        } ?>">
+        <img src="<?php echo get_avatar($post) ?>">
       </div>
       <div class="content">
         <div class="summary">

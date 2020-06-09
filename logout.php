@@ -1,5 +1,5 @@
 <?php
-  include 'variables.php';
+  include_once 'variables.php';
   if ($is_logged_in) {
     $_SESSION["userid"] = null;
     $is_logged_in = 0;

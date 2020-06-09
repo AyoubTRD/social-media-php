@@ -1,5 +1,5 @@
 <?php
-include "variables.php";
+include_once "variables.php";
 if (!$is_logged_in) {
   header("Location: $website_base");
 }
@@ -103,7 +103,7 @@ if (isset($_POST["submit"])) {
 
 $title = "Account settings";
 $active = "profile-settings";
-include "header.php";
+include_once "header.php";
 
 ?>
 <form class="ui form auth-form" action="profile-settings.php" method="post">
@@ -154,4 +154,4 @@ include "header.php";
   <input type="submit" name="delete" value="Delete account" class="ui button red">
 </form>
 
-<?php include 'footer.php'; ?>
+<?php include_once 'footer.php'; ?>

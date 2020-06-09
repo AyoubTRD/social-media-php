@@ -2,7 +2,7 @@
   $title = "Home";
   $no_container = 1;
   $active = "home";
-  include "header.php";
+  include_once "header.php";
 ?>
 
 <?php if (!$is_logged_in) { ?>
@@ -16,7 +16,7 @@
 <?php } else { ?>
   <div class="ui container py-10">
     <h1>Hello <?php echo $user["name"]; ?></h1>
-    <?php include 'components/create-post.php'; ?>
+    <?php include_once 'components/create-post.php'; ?>
     <hr class="ui divider">
     <?php
       $query = "SELECT p.post_id, p.content, p.images, p.created_at, p.user_id, u.name, u.avatar, u.gender ";
@@ -25,8 +25,8 @@
       $query .= "ON p.user_id = u.id ";
       $query .= "ORDER BY p.post_id DESC";
       $feed_title = "Recent activity";
-      include 'components/feed.php' ?>
+      include_once 'components/feed.php' ?>
   </div>
 <?php } ?>
 
-<?php include "footer.php"; ?>
+<?php include_once "footer.php"; ?>
