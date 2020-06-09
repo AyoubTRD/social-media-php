@@ -25,10 +25,7 @@ if (isset($_POST["submit"])) {
   }
 
   if ($valid) {
-    $connection = mysqli_connect("localhost", "root", "", "helloworld");
-    if (!$connection) {
-      echo "An error occured while logging you in.";
-    } else {
+
       $email_q = mysqli_real_escape_string($connection, $email);
       $query = "SELECT * FROM users WHERE email = '$email_q'";
 
@@ -51,7 +48,6 @@ if (isset($_POST["submit"])) {
         if (!$user_found) {
           $error = "No user found with the email specified.";
         }
-      }
     }
   }
   if ($user) {

@@ -7,6 +7,7 @@ if (!$is_logged_in) {
 $name = $user["name"];
 $email = $user["email"];
 $password = $user["password"];
+$birth_date = $user["birth_date"];
 $id = $user["id"];
 
 $errors = array("name" => "", "email" => "", "password" => "");
@@ -36,6 +37,7 @@ if (isset($_POST["submit"])) {
   $new_name = $_POST["name"];
   $new_password = $_POST["password"];
   $new_email = $_POST["email"];
+  $new_birth_date = $_POST["birth_date"];
 
   $valid = 1;
 
@@ -54,10 +56,9 @@ if (isset($_POST["submit"])) {
   }
 
   if (!$new_password) {
-    $errors["password"] = "The password is required.";
-    $valid = 0;
+    $new_password = $password;
   }
-  elseif (strlen($new_password) < 6) {
+  if (strlen($new_password) < 6) {
     $errors["password"] = "The password has to be at least 6 characters.";
     $valid = 0;
   }
@@ -65,6 +66,7 @@ if (isset($_POST["submit"])) {
   $name = $new_name;
   $email = $new_email;
   $password = $new_password;
+  $birth_date = $new_birth_date;
 
   if ($valid) {
     $connection = mysqli_connect("localhost", "root", "", "helloworld");
@@ -73,9 +75,10 @@ if (isset($_POST["submit"])) {
     } else {
       $name_q = mysqli_real_escape_string($connection, $new_name);
       $email_q = mysqli_real_escape_string($connection, $new_email);
+      $birth_date_q = mysqli_real_escape_string($connection, $new_birth_date);
       $password_q = password_hash($new_password, PASSWORD_DEFAULT);
       $query = "UPDATE users ";
-      $query .= "SET name = '$name_q', email = '$email_q', password = '$password_q'";
+      $query .= "SET name = '$name_q', email = '$email_q', password = '$password_q', birth_date = '$birth_date_q'";
       $query .= "WHERE id = $id";
 
       $res = mysqli_query($connection, $query);
@@ -91,7 +94,7 @@ if (isset($_POST["submit"])) {
         if ($user) {
           $is_logged_in = 1;
         } else {
-          setcookie("userid", "", time() - 3600);
+          $_SESSION["userid"] = null;
         }
       }
     }
@@ -123,13 +126,17 @@ include "header.php";
     <?php } ?>
   </div>
   <div class="field">
-    <label for="password">Password</label>
-    <input required type="password" name="password" id="password" value="" placeholder="Password">
+    <label for="password">New password</label>
+    <input type="password" name="password" id="password" value="" placeholder="Password">
     <?php if ($errors["password"]) { ?>
       <div class="ui message visible red">
         <p><?php echo $errors["password"] ?></p>
       </div>
     <?php } ?>
+  </div>
+  <div class="field">
+    <label for="birth_date">Birth date</label>
+    <input type="date" name="birth_date" id="birth_date" value="<?php echo $birth_date ?>">
   </div>
   <input type="submit" name="submit" class="ui button primary" value="Update">
   <?php if ($error) { ?>

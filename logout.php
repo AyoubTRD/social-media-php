@@ -1,7 +1,7 @@
 <?php
   include 'variables.php';
   if ($is_logged_in) {
-    setcookie("userid", "", time() - 3600);
+    $_SESSION["userid"] = null;
     $is_logged_in = 0;
   }
   header("Location: $website_base");

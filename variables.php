@@ -2,13 +2,18 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-$website_name = "Hello MySQL World";
-$website_base = "http://localhost/hello-world/mysql";
+$website_name = "TRD Social Media";
+$website_base = "http://localhost/social-media";
 if (isset($_ENV["WEBSITE_BASE_URL"]) && $_ENV["WEBSITE_BASE_URL"]) {
   $website_base = $_ENV["WEBSITE_BASE_URL"];
 }
 $is_logged_in = 0;
 $user = array();
+
+$connection = mysqli_connect("localhost", "root", "", "helloworld");
+if (!$connection) {
+  die("Failed to connect to database");
+}
 
 if (isset($_SESSION["userid"]) && $_SESSION["userid"]) {
   $user_id = $_SESSION["userid"];
@@ -24,4 +29,7 @@ if (isset($_SESSION["userid"]) && $_SESSION["userid"]) {
     $_SESSION["userid"] = "";
   }
 }
+
+$male_default_avatar = "";
+$female_default_avatar = "";
 ?>
