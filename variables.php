@@ -3,7 +3,7 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 $website_name = "TRD Social Media";
-$website_base = "http://localhost/social-media";
+$website_base = "http://localhost";
 if (isset($_ENV["WEBSITE_BASE_URL"]) && $_ENV["WEBSITE_BASE_URL"]) {
   $website_base = $_ENV["WEBSITE_BASE_URL"];
 }
@@ -29,7 +29,4 @@ if (isset($_SESSION["userid"]) && $_SESSION["userid"]) {
     $_SESSION["userid"] = "";
   }
 }
-
-$male_default_avatar = "";
-$female_default_avatar = "";
 ?>

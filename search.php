@@ -14,15 +14,13 @@
   $res = mysqli_query($connection, $query);
 
   if (!$res) {
-    // Some error occured
+      // Some error occured
   } else {
-    $found_users = 0;
-?>
+      $found_users = 0; ?>
 <div class="grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 lg:grid-cols-6 xl:grid-cols-6 gap-10">
   <?php
-      while($user_res = mysqli_fetch_assoc($res)) {
-        $found_users = 1;
-  ?>
+      while ($user_res = mysqli_fetch_assoc($res)) {
+          $found_users = 1; ?>
         <div class="transition border border-gray-300 duration-300 w-48 h-48 shadow-sm rounded flex flex-col align-center justify-around text-center py-2 px-4 hover:shadow-xl hover:scale-110" style="justify-self: center">
           <img class="rounded-full w-20 h-20 mx-auto mb-1" src="<?php echo get_avatar($user_res) ?>" alt="<?php echo $user_res['name'] ?>'s profile picture">
           <h3 class="mb-3 mt-0 text-xl"><?php echo $user_res["name"] ?></h3>
@@ -30,13 +28,14 @@
             View profile
           </a>
         </div>
-  <?php }
-    }
+  <?php
+      }
+  }
   ?>
 </div>
 <?php
   if ($found_users) {
-    echo "<hr class='ui divider'>";
+      echo "<hr class='ui divider'>";
   }
 ?>
 

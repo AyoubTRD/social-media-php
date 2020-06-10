@@ -1,6 +1,6 @@
 <?php
 $profile_id = $_GET["user_id"];
-include "../variables.php";
+include_once "../variables.php";
 
 $query = "SELECT name, id, cover, avatar, birth_date, gender ";
 $query .= "FROM users ";
@@ -20,7 +20,7 @@ if (!$profile) {
 
 $title = $profile["name"];
 $no_container = 1;
-include "../header.php";
+include_once "../header.php";
 
 ?>
 
@@ -62,14 +62,18 @@ include "../header.php";
     <hr class="divider my-10">
   <?php } ?>
   <?php
-    $query = "SELECT p.post_id, p.content, p.images, p.created_at, p.user_id, u.name, u.avatar, u.gender ";
+    $query = "SELECT p.post_id, p.content, p.images, p.created_at, p.user_id, u.name, u.avatar, u.gender, c.comment_id, c.content AS comment_content, c.images AS comment_images, c.created_at AS comment_created_at, c.user_id AS comment_user_id, cu.name AS comment_user_name, cu.gender AS comment_user_gender, cu.avatar AS comment_user_avatar ";
     $query .= "FROM posts p ";
     $query .= "JOIN users u ";
     $query .= "ON p.user_id = u.id ";
+    $query .= "LEFT JOIN comments c ";
+    $query .= "USING (post_id) ";
+    $query .= "LEFT JOIN users cu ";
+    $query .= "ON c.user_id = cu.id ";
     $query .= "WHERE p.user_id = $profile_id ";
     $query .= "ORDER BY p.post_id DESC";
-    $feed_title = $profile["name"]."'s recent activity";
 
+    $feed_title = $profile["name"]."'s recent activity";
     $no_posts_message = "<strong>".$profile["name"]."</strong> has no posts.";
     include '../components/feed.php'
   ?>

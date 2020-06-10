@@ -21,11 +21,11 @@
     }
 }
 
-.event {
+.has-settings {
   position: relative;
 }
 
-.ui.dropdown.post-settings {
+.ui.dropdown.settings {
   position: absolute;
   top: 0;
   right: 0px;

@@ -4,7 +4,7 @@
   $active = isset($active) ? $active : "";
 
   if (isset($title)) {
-    $page_title .= " | ".$title;
+      $page_title .= " | ".$title;
   }
 
 ?>
@@ -20,7 +20,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
   </head>
-  <body>
+  <body class="bg-gray-100">
     <header class="ui primary menu pointing" style="border-radius: 0; margin-bottom: 0">
       <div class="ui container">
         <a href="<?php echo $website_base; ?>" class="item <?php echo $active === 'home' ? 'active' : '' ?> ">

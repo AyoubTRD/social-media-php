@@ -19,10 +19,14 @@
     <?php include_once 'components/create-post.php'; ?>
     <hr class="ui divider">
     <?php
-      $query = "SELECT p.post_id, p.content, p.images, p.created_at, p.user_id, u.name, u.avatar, u.gender ";
+      $query = "SELECT p.post_id, p.content, p.images, p.created_at, p.user_id, u.name, u.avatar, u.gender, c.comment_id, c.content AS comment_content, c.images AS comment_images, c.created_at AS comment_created_at, c.user_id AS comment_user_id, cu.name AS comment_user_name, cu.gender AS comment_user_gender, cu.avatar AS comment_user_avatar ";
       $query .= "FROM posts p ";
       $query .= "JOIN users u ";
       $query .= "ON p.user_id = u.id ";
+      $query .= "LEFT JOIN comments c ";
+      $query .= "USING (post_id) ";
+      $query .= "LEFT JOIN users cu ";
+      $query .= "ON c.user_id = cu.id ";
       $query .= "ORDER BY p.post_id DESC";
       $feed_title = "Recent activity";
       include_once 'components/feed.php' ?>
