@@ -31,7 +31,9 @@
         "comment_id" => $post["comment_id"],
         "gender" => $post["comment_user_gender"],
         "avatar" => $post["comment_user_avatar"],
-        "name" => $post["comment_user_name"]
+        "name" => $post["comment_user_name"],
+        "likes" => $post["comment_likes"],
+        "is_liked" => $post["comment_is_liked"]
       ];
       $formatted_posts[0]["comments"] = [];
       if ($formatted_posts[0]["comment_content"] !== null) {
@@ -48,7 +50,9 @@
             "comment_id" => $post["comment_id"],
             "gender" => $post["comment_user_gender"],
             "avatar" => $post["comment_user_avatar"],
-            "name" => $post["comment_user_name"]
+            "name" => $post["comment_user_name"],
+            "likes" => $post["comment_likes"],
+            "is_liked" => $post["comment_is_liked"]
           ];
           if ($post["post_id"] === $previous_post_id) {
               $last_i = count($formatted_posts) - 1;

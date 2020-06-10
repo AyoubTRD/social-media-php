@@ -7,6 +7,7 @@
   $res = mysqli_query($connection, $query);
   if (!$res) {
       echo "<p class='text-red-500 mt-4'>Failed to get your feed.</p>";
+      echo mysqli_error($connection);
   } else {
       ?>
 

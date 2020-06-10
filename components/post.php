@@ -29,8 +29,9 @@
         <?php echo $post["content"]; ?>
       </div>
       <div class="meta">
-        <a class="like">
-          <i class="like icon"></i> 8 Likes
+        <a class="post-like like <?php echo $post['is_liked'] ? 'active' : '' ?>" data-post-id="<?php echo $post['post_id'] ?>">
+          <i class="like icon"></i>
+          <span class="likes-count"><?php echo $post["likes"] ?></span> Likes
         </a>
       </div>
     </div>
@@ -71,8 +72,9 @@
               <?php echo $comment["content"] ?>
             </div>
             <div class="actions">
-              <a class="like">
-                <i class="like icon"></i> 8 Likes
+              <a class="comment-like like <?php echo $comment['is_liked'] ? 'active' : '' ?>" data-comment-id="<?php echo $comment["comment_id"] ?>">
+                <i class="like icon"></i>
+                <span class="likes-count"><?php echo $comment["likes"] ?></span> Likes
               </a>
             </div>
           </div>

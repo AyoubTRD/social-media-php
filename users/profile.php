@@ -62,7 +62,7 @@ include_once "../header.php";
     <hr class="divider my-10">
   <?php } ?>
   <?php
-    $query = "SELECT p.post_id, p.content, p.images, p.created_at, p.user_id, u.name, u.avatar, u.gender, c.comment_id, c.content AS comment_content, c.images AS comment_images, c.created_at AS comment_created_at, c.user_id AS comment_user_id, cu.name AS comment_user_name, cu.gender AS comment_user_gender, cu.avatar AS comment_user_avatar ";
+    $query = $start_query;
     $query .= "FROM posts p ";
     $query .= "JOIN users u ";
     $query .= "ON p.user_id = u.id ";
