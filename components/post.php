@@ -1,4 +1,4 @@
-<div class="ui feed bg-white py-5 px-5 rounded shadow-md">
+<div class="ui feed bg-white px-2 py-2 sm:py-5 sm:px-5 rounded shadow-md">
   <div class="event has-settings">
     <?php if ($post["user_id"] === $user["id"]) { ?>
       <div class="ui dropdown settings">

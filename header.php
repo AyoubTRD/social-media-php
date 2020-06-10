@@ -20,7 +20,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
   </head>
-  <body class="bg-gray-100">
+  <body style="background-color: #fcfcfc">
     <header class="ui primary menu pointing" style="border-radius: 0; margin-bottom: 0">
       <div class="ui container">
         <a href="<?php echo $website_base; ?>" class="item <?php echo $active === 'home' ? 'active' : '' ?> ">
@@ -28,7 +28,7 @@
           <span class="hide-on-mobile">Home</span>
         </a>
         <?php if ($is_logged_in) { ?>
-          <form class="item" action="<?php echo $website_base ?>/search.php" method="get" style="flex: 4">
+          <form class="item" action="<?php echo $website_base ?>/search.php" method="get" style="flex: 4; min-width: 0">
             <div class="ui icon input">
               <i class="search icon"></i>
               <input type="text" name="search_query" placeholder="search..." value="" style="border: none;">
@@ -64,5 +64,5 @@
       </div>
     </header>
     <?php if (!isset($no_container)) { ?>
-      <div class="ui container <?php echo isset($container_classes) ? $container_classes : '' ?>">'
+      <div class="ui container <?php echo isset($container_classes) ? $container_classes : '' ?>">
     <?php } ?>

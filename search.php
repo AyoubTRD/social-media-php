@@ -15,7 +15,11 @@
 
   if (!$res) {
       // Some error occured
-  } else {
+  ?>
+  <div class="w-64 h-32 rounded shadow-sm bg-white mx-auto flex items-center justify-center">
+    <h1 class="text-red-500 text-center text-3xl uppercase">Some error occured</h1>
+  </div>
+  <?php } else {
       $found_users = 0; ?>
 <div class="grid grid-cols-2 md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 lg:grid-cols-6 xl:grid-cols-6 gap-10">
   <?php
@@ -30,7 +34,6 @@
         </div>
   <?php
       }
-  }
   ?>
 </div>
 <?php
@@ -54,6 +57,7 @@
   $feed_title = "Posts that include ".$search_query;
   $no_posts_message = "No posts.";
   include 'components/feed.php';
+}
 
 ?>
 

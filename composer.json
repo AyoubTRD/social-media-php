@@ -1,1 +1,5 @@
-{}
+{
+    "require": {
+        "google/photos-library": "^1.5"
+    }
+}

@@ -63,6 +63,9 @@
   .hide-on-mobile {
     display: none !important;
   }
+  .ui.menu .item>i.icon {
+    margin: 0;
+  }
 }
 
 @media all and (min-width: 501px) {
