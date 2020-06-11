@@ -1,3 +1,6 @@
+<?php
+$images = unserialize($post["images"]);
+?>
 <div class="ui feed bg-white px-2 py-2 sm:py-5 sm:px-5 rounded shadow-md">
   <div class="event has-settings">
     <?php if ($post["user_id"] === $user["id"]) { ?>
@@ -20,7 +23,7 @@
       <div class="summary">
         <a class="user" href="<?php echo $website_base.'/users/profile.php?user_id='.$post['user_id']; ?>">
           <?php echo $post["name"]; ?>
-        </a> has posted.
+        </a> has posted<?php echo $images ? " ".count($images)." images" : ""; ?>.
         <div class="date">
           <?php echo $post["created_at"]; ?>
         </div>
@@ -28,6 +31,13 @@
       <div class="extra text">
         <?php echo $post["content"]; ?>
       </div>
+      <?php if ($images) { ?>
+        <div class="extra images">
+          <?php foreach($images as $image) { ?>
+            <img src="<?php echo $image ?>" style="width: 25rem; max-width: 100%; margin-bottom: 0.5rem;">
+          <?php } ?>
+        </div>
+      <?php } ?>
       <div class="meta">
         <a class="post-like like <?php echo $post['is_liked'] ? 'active' : '' ?>" data-post-id="<?php echo $post['post_id'] ?>">
           <i class="like icon"></i>

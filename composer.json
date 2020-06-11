@@ -1,5 +1,5 @@
 {
     "require": {
-        "google/photos-library": "^1.5"
+        "google/apiclient": "^2.0"
     }
 }
