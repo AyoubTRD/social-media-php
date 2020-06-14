@@ -7,6 +7,10 @@ $website_base = "http://localhost";
 if (isset($_ENV["WEBSITE_BASE_URL"]) && $_ENV["WEBSITE_BASE_URL"]) {
   $website_base = $_ENV["WEBSITE_BASE_URL"];
 }
+$realtime_server = "http://localhost:8080/";
+if (isset($_ENV["NODE_SERVER"]) && $_ENV["NODE_SERVER"]) {
+  $realtime_server = $_ENV["NODE_SERVER"];
+}
 $is_logged_in = 0;
 $user = array();
 

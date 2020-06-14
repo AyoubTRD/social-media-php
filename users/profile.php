@@ -1,6 +1,23 @@
 <?php
-$profile_id = $_GET["user_id"];
 include_once "../variables.php";
+include_once "../g_drive.php";
+
+$user_id = $user["id"];
+foreach(["avatar", "cover"] as $image) {
+  if (isset($_FILES[$image])) {
+    $image_content = file_get_contents($_FILES[$image]["tmp_name"]);
+    $image_drive_path = upload_file($service, $image_content);
+    $image_q = mysqli_real_escape_string($connection, $image_drive_path);
+
+    $query = "UPDATE users SET $image = '$image_q' WHERE id = $user_id";
+    $res = mysqli_query($connection, $query);
+
+    if(!$res) {
+      die("An error occured".mysqli_error($connection));
+    }
+  }
+}
+$profile_id = $_GET["user_id"];
 
 $query = "SELECT name, id, cover, avatar, birth_date, gender ";
 $query .= "FROM users ";
@@ -18,6 +35,8 @@ if (!$profile) {
   echo "User not found";
 }
 
+$is_auth_user = $user["id"] === $profile["id"];
+
 $title = $profile["name"];
 $no_container = 1;
 include_once "../header.php";
@@ -32,11 +51,28 @@ include_once "../header.php";
     } ?>;
     background-size: cover;
 ">
+  <?php if($is_auth_user) { ?>
+  <form id="cover-form" class="ui label right corner blue cursor-pointer large" action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post" enctype="multipart/form-data">
+    <a class="cursor-pointer">
+      <label class="cursor-pointer" for="cover"><i class="edit icon" style="cursor: pointer"></i></label>
+      <input type="file" class="hidden" name="cover" id="cover" value="" accept="image/png, image/jpeg" onchange="document.querySelector('#cover-form').submit()">
+    </a>
+  </form>
+  <?php } ?>
   <div class="ui container profile-picture-container">
   <?php if ($profile["avatar"]) { ?>
-    <div class="profile-picture border-gray-600 border-4" style="
+    <div class="profile-picture shadow-lg relative overflow-hidden rounded" style="
     background-image: url(<?php echo $profile['avatar'] ?>)
-    "></div>
+    ">
+      <?php if ($is_auth_user) { ?>
+      <form id="avatar-form" class="ui label right corner blue cursor-pointer" action="<?php echo $_SERVER['REQUEST_URI'] ?>" method="post" enctype="multipart/form-data">
+        <a class="cursor-pointer">
+          <label class="cursor-pointer" for="avatar"><i class="edit icon" style="cursor: pointer"></i></label>
+          <input type="file" class="hidden" name="avatar" id="avatar" value="" accept="image/png, image/jpeg" onchange="document.querySelector('#avatar-form').submit()">
+        </a>
+      </form>
+      <?php } ?>
+    </div>
   <?php } else {?>
     <h1 class="text-white text-6xl text-shadow-black on-cover-text"><?php echo $profile["name"]; ?></h1>
   </div>

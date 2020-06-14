@@ -9,7 +9,8 @@
     <label for="content">Post content</label>
     <textarea id="content" name="content" value="" placeholder="What's on your mind? <?php echo $user['name']; ?>!"></textarea>
   </div>
-  <label for="images" class="ui button labeled icon small green" style="margin-bottom: 0.75rem">
+  <label for="images" class="font-bold block mb-2">Post images</label>
+  <label for="images" class="ui button labeled icon small" style="margin-bottom: 0.75rem">
       <i class="upload icon"></i> Upload images
   </label>
   <input type="file" name="images[]" id="images" accept="image/jpeg, image/png" style="display: none" multiple>

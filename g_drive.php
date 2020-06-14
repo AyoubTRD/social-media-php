@@ -56,7 +56,6 @@ function upload_file($service, $file_content, $file_type='image/jpeg')
   );
 
   $file_id = $result->getId();
-  echo $file_id;
 
   $service->getClient()->setUseBatch(true);
   $batch = $service->createBatch();

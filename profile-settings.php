@@ -16,20 +16,14 @@ $error = "";
 $success = "";
 
 if(isset($_POST["delete"])) {
-  $connection = mysqli_connect("localhost", "root", "", "helloworld");
-  if (!$connection) {
-    $error = "Some error occured.";
-  } else {
-    $query = "DELETE FROM users ";
-    $query .= "WHERE id = $id";
-    $res = mysqli_query($connection, $query);
+  $query = "DELETE FROM users WHERE id = $id";
+  $res = mysqli_query($connection, $query);
 
-    if (!$res) {
-      $error = "Some error occured";
-    } else {
-      setcookie("userid", "", time() - 3600);
-      header("Location: $website_base");
-    }
+  if (!$res) {
+    $error = "Some error occured".mysqli_error($connection);
+  } else {
+    setcookie("userid", "", time() - 3600);
+    header("Location: $website_base");
   }
 }
 
@@ -69,33 +63,28 @@ if (isset($_POST["submit"])) {
   $birth_date = $new_birth_date;
 
   if ($valid) {
-    $connection = mysqli_connect("localhost", "root", "", "helloworld");
-    if (!$connection) {
-      echo "An error occured while signin you up.";
-    } else {
-      $name_q = mysqli_real_escape_string($connection, $new_name);
-      $email_q = mysqli_real_escape_string($connection, $new_email);
-      $birth_date_q = mysqli_real_escape_string($connection, $new_birth_date);
-      $password_q = password_hash($new_password, PASSWORD_DEFAULT);
-      $query = "UPDATE users ";
-      $query .= "SET name = '$name_q', email = '$email_q', password = '$password_q', birth_date = '$birth_date_q'";
-      $query .= "WHERE id = $id";
+    $name_q = mysqli_real_escape_string($connection, $new_name);
+    $email_q = mysqli_real_escape_string($connection, $new_email);
+    $birth_date_q = mysqli_real_escape_string($connection, $new_birth_date);
+    $password_q = password_hash($new_password, PASSWORD_DEFAULT);
+    $query = "UPDATE users ";
+    $query .= "SET name = '$name_q', email = '$email_q', password = '$password_q', birth_date = '$birth_date_q'";
+    $query .= "WHERE id = $id";
 
+    $res = mysqli_query($connection, $query);
+
+    if (!$res) {
+      $error = "Something went wrong";
+    } else {
+      $success = "Update success!";
+      $query = "SELECT * FROM users WHERE id = $user_id";
       $res = mysqli_query($connection, $query);
 
-      if (!$res) {
-        $error = "Something went wrong";
+      $user = mysqli_fetch_assoc($res);
+      if ($user) {
+        $is_logged_in = 1;
       } else {
-        $success = "Update success!";
-        $query = "SELECT * FROM users WHERE id = $user_id";
-        $res = mysqli_query($connection, $query);
-
-        $user = mysqli_fetch_assoc($res);
-        if ($user) {
-          $is_logged_in = 1;
-        } else {
-          $_SESSION["userid"] = null;
-        }
+        $_SESSION["userid"] = null;
       }
     }
   }

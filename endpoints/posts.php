@@ -8,9 +8,11 @@
     $images = [];
 
     foreach ($_FILES["images"]["tmp_name"] as $image_path) {
-      $image_content = file_get_contents($image_path);
-      $image_drive_path = upload_file($service, $image_content);
-      array_push($images, $image_drive_path);
+      if ($image_path) {
+        $image_content = file_get_contents($image_path);
+        $image_drive_path = upload_file($service, $image_content);
+        array_push($images, $image_drive_path);
+      }
     }
 
     $userid = $user["id"];

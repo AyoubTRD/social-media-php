@@ -1,6 +1,8 @@
 <?php
 include_once "variables.php";
 include_once "functions.php";
+include_once "g_drive.php";
+
 if ($is_logged_in) {
   header("Location: $website_base");
 }
@@ -21,6 +23,7 @@ if (isset($_POST["submit"])) {
   $email = $_POST["email"];
   $gender = $_POST["gender"];
   $birth_date = $_POST["birth_date"];
+  $avatar_q = mysqli_real_escape_string($connection, get_avatar(["gender" => $gender, "name" => $name, "avatar" => ""]));
 
   $valid = 1;
 
@@ -60,8 +63,8 @@ if (isset($_POST["submit"])) {
       $name_q = mysqli_real_escape_string($connection, $name);
       $email_q = mysqli_real_escape_string($connection, $email);
       $password_q = password_hash($password, PASSWORD_DEFAULT);
-      $query = "INSERT INTO users(name, email, password, gender, birth_date) ";
-      $query .= "VALUES ('$name_q', '$email_q', '$password_q', '$gender', '$birth_date')";
+      $query = "INSERT INTO users(name, email, password, gender, birth_date, avatar) ";
+      $query .= "VALUES ('$name_q', '$email_q', '$password_q', '$gender', '$birth_date', '$avatar_q')";
       $res = mysqli_query($connection, $query);
 
       if (!$res) {
