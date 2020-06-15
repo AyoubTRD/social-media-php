@@ -14,10 +14,11 @@ if (isset($_ENV["NODE_SERVER"]) && $_ENV["NODE_SERVER"]) {
 $is_logged_in = 0;
 $user = array();
 
-$db_host = "localhost";
-$db_user = "root";
-$db_password = "";
-$db_name = "helloworld";
+$db_host = "bsyz4zydsluotmekr0br-mysql.services.clever-cloud.com";
+$db_user = "uwhxjepmklkrk54p";
+$db_password = "cgzDktvcMOvN8DThReR9";
+$db_name = "bsyz4zydsluotmekr0br";
+
 
 if (isset($_ENV["DB_HOST"])) {
   $db_host = $_ENV["DB_HOST"];
@@ -39,7 +40,6 @@ if (!$connection) {
 
 if (isset($_SESSION["userid"]) && $_SESSION["userid"]) {
   $user_id = $_SESSION["userid"];
-  $connection = mysqli_connect("localhost", "root", "", "helloworld");
 
   $query = "SELECT * FROM users WHERE id = $user_id";
   $res = mysqli_query($connection, $query);
