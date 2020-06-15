@@ -34,7 +34,7 @@ if (isset($_ENV["DB_NAME"])) {
 
 $connection = mysqli_connect($db_host, $db_user, $db_password, $db_name);
 if (!$connection) {
-  die("Failed to connect to database");
+  die("Failed to connect to database ".mysqli_error($connection));
 }
 
 if (isset($_SESSION["userid"]) && $_SESSION["userid"]) {
