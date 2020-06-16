@@ -3,6 +3,7 @@
   $no_container = 1;
   $active = "home";
   include_once "header.php";
+
 ?>
 
 <?php if (!$is_logged_in) { ?>

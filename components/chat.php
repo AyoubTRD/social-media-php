@@ -43,7 +43,10 @@
             <img v-if="message.user_from !== ID" :src="currentUser.avatar" alt="" class="h-8 w-8 rounded-full">
             <div :class="`flex flex-col mx-3 ${message.user_from !== ID ? 'items-start' : 'items-end'}`">
               <p :class="`py-4 px-5 mb-0 ${message.user_from === ID ? 'bg-blue-400 text-white' : 'bg-gray-200 '}`">{{ message.content }}</p>
-              <span class="text-gray-300 text-sm mx-1">{{ messageFormatDate(message.created_at) }}</span>
+              <div class="mx-1">
+                <span v-if="message.user_from === ID && message.seen == '1'" class="text-blue-300 text-sm mr-2">seen</span>
+                <span class="text-gray-300 text-sm">{{ messageFormatDate(message.created_at) }}</span>
+              </div>
             </div>
             <img v-if="message.user_from === ID" :src="AUTH_USER.avatar" alt="" class="h-8 w-8 rounded-full">
           </div>

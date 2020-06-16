@@ -33,6 +33,12 @@ new Vue({
             this.messages = data.data;
             this.loadingMessages = false;
             this.title = this.currentUser.name
+            if (!this.messages.length) return
+            const lastMessage = this.messages[this.messages.length - 1];
+            socket.emit("see_message", {
+                ...lastMessage,
+                user_to: ID
+            })
         },
         back() {
             this.showMessages = false;
@@ -85,14 +91,27 @@ new Vue({
     async created() {
         this.fetchUsers()
         socket.on("message", async (message) => {
+            message.created_at = message.created_at || new Date();
             const user = this.users.find(u => u.id === message.user_from);
             user.last_message_content = message.content;
             if (this.currentUser && message.user_from === this.currentUser.id) {
                 this.messages.push(message);
                 await fetch("/endpoints/messages.php?no_fetch=true&user_id=" + this.currentUser.id);
+                socket.emit("see_message", {
+                    ...message,
+                    user_to: ID
+                })
+                await fetch("/endpoints/messages.php?no_fetch=true&user_id=" + this.currentUser.id)
             } else {
                 user.unseen_messages++
             }
+        })
+
+        socket.on("message_seen", (message) => {
+            if (this.currentUser && !message.user_to === this.currentUser.id) return
+            const newMsgs = [...this.messages];
+            newMsgs[newMsgs.length - 1].seen = 1;
+            this.messages = newMsgs
         })
 
         socket.on("online_user", ({id}) => {

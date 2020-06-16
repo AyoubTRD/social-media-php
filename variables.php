@@ -14,24 +14,24 @@ if (isset($_ENV["NODE_SERVER"]) && $_ENV["NODE_SERVER"]) {
 $is_logged_in = 0;
 $user = array();
 
-$db_host = "bsyz4zydsluotmekr0br-mysql.services.clever-cloud.com";
-$db_user = "uwhxjepmklkrk54p";
-$db_password = "cgzDktvcMOvN8DThReR9";
-$db_name = "bsyz4zydsluotmekr0br";
+$db_host = "localhost";
+$db_user = "root";
+$db_password = "";
+$db_name = "helloworld";
 
 
-//if (isset($_ENV["DB_HOST"])) {
-//  $db_host = $_ENV["DB_HOST"];
-//}
-//if (isset($_ENV["DB_USER"])) {
-//  $db_user = $_ENV["DB_USER"];
-//}
-//if (isset($_ENV["DB_PASSWORD"])) {
-//  $db_password = $_ENV["DB_PASSWORD"];
-//}
-//if (isset($_ENV["DB_NAME"])) {
-//  $db_name = $_ENV["DB_NAME"];
-//}
+if (isset($_ENV["DB_HOST"])) {
+  $db_host = $_ENV["DB_HOST"];
+}
+if (isset($_ENV["DB_USER"])) {
+  $db_user = $_ENV["DB_USER"];
+}
+if (isset($_ENV["DB_PASSWORD"])) {
+  $db_password = $_ENV["DB_PASSWORD"];
+}
+if (isset($_ENV["DB_NAME"])) {
+  $db_name = $_ENV["DB_NAME"];
+}
 
 $connection = mysqli_connect($db_host, $db_user, $db_password, $db_name);
 if (!$connection) {
