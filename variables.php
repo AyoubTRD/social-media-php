@@ -3,7 +3,7 @@ if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
 $website_name = "TRD Social Media";
-$website_base = "http://localhost";
+$website_base = "http://localhost:8888";
 if (isset($_ENV["WEBSITE_BASE_URL"]) && $_ENV["WEBSITE_BASE_URL"]) {
   $website_base = $_ENV["WEBSITE_BASE_URL"];
 }
@@ -14,7 +14,7 @@ if (isset($_ENV["NODE_SERVER"]) && $_ENV["NODE_SERVER"]) {
 $is_logged_in = 0;
 $user = array();
 
-$db_host = "localhost";
+$db_host = "localhost:3306";
 $db_user = "root";
 $db_password = "";
 $db_name = "social_media_php";

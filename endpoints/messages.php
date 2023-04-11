@@ -60,14 +60,12 @@ if ($method === "POST") {
     $message_content = $body["message"]["content"];
     $message_receiver = $body["message"]["to"];
     $message_sender = $body["message"]["from"];
-    $message_created_at = $body["message"]["createdAt"];
     $message_content_escaped = mysqli_real_escape_string($connection, $message_content);
     $message_receiver_escaped = mysqli_real_escape_string($connection, $message_receiver);
     $message_sender_escaped = mysqli_real_escape_string($connection, $message_sender);
-    $message_created_at_escaped = mysqli_real_escape_string($connection, $message_created_at);
-
-    $query = "INSERT INTO messages (user_from, user_to, content, created_at) ";
-    $query .= "VALUES ($message_sender_escaped, $message_receiver_escaped, '$message_content_escaped', '$message_created_at_escaped')";
+  
+    $query = "INSERT INTO messages (user_from, user_to, content) ";
+    $query .= "VALUES ($message_sender_escaped, $message_receiver_escaped, '$message_content_escaped')";
 
     $res = mysqli_query($connection, $query);
     if (!$res) {

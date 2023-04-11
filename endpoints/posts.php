@@ -37,8 +37,9 @@
     $query .= "WHERE post_id = $post_id_q AND user_id = $user_id";
 
     $res = mysqli_query($connection, $query);
+
     if (!$res) {
-      echo "An error occured while deleting the post <br>";
+      echo "An error occured while deleting the post <br>".mysqli_error($connection);
     } else {
       header("Location: $website_base");
     }

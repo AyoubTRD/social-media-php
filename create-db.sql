@@ -5,21 +5,22 @@ USE social_media_php;
 CREATE TABLE users(
 	id INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(128) NOT NULL,
-	email VARCHAR(128) NOT NULL,
+	email VARCHAR(128) NOT NULL UNIQUE,
 	birth_date DATE,
 	`password` VARCHAR(128) NOT NULL,
 	avatar VARCHAR(256),
 	cover VARCHAR(256),
 	gender VARCHAR(16),
 	
+	is_online BOOL DEFAULT 0,
+	
 	created_at TIMESTAMP DEfAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	
-	PRIMARY KEY(id),
-	UNIQUE(email)
+	PRIMARY KEY(id)
 );
 
-CREATE table posts(
+CREATE TABLE posts(
 	post_id INT NOT NULL AUTO_INCREMENT,
 	user_id INT NOT NULL,
 	
@@ -29,11 +30,11 @@ CREATE table posts(
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	
-	FOREIGN KEY(user_id) REFERENCES users(id),
+	FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
 	PRIMARY KEY(post_id)
 );
 
-CREATE table comments(
+CREATE TABLE comments(
 	comment_id INT NOT NULL AUTO_INCREMENT,
 	user_id INT NOT NULL,
 	post_id INT NOT NULL,
@@ -45,18 +46,35 @@ CREATE table comments(
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	
 	PRIMARY KEY(comment_id),
-	FOREIGN KEY(post_id) REFERENCES posts(post_id),
-	FOREIGN KEY(user_id) REFERENCES users(id)
+	FOREIGN KEY(post_id) REFERENCES posts(post_id) ON DELETE CASCADE,
+	FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE table likes(
+CREATE TABLE likes(
 	like_id INT NOT NULL AUTO_INCREMENT,
 	user_id INT NOT NULL,
 	comment_id INT,
 	post_id INT,
 	
 	PRIMARY KEY (like_id),
-	FOREIGN KEY (user_id) REFERENCES users(id),
-	FOREIGN KEY (comment_id) REFERENCES comments(comment_id),
-	FOREIGN KEY (post_id) REFERENCES posts(post_id)
+	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+	FOREIGN KEY (comment_id) REFERENCES comments(comment_id) ON DELETE CASCADE,
+	FOREIGN KEY (post_id) REFERENCES posts(post_id) ON DELETE CASCADE
+);
+
+CREATE TABLE messages(
+	message_id INT NOT NULL AUTO_INCREMENT,
+	user_from INT NOT NULL,
+	user_to INT NOT NULL,
+	
+	content MEDIUMTEXT,
+
+	seen BOOL DEFAULT 0,
+
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+	PRIMARY KEY(message_id),
+	FOREIGN KEY(user_from) REFERENCES users(id) ON DELETE CASCADE,
+	FOREIGN KEY(user_to) REFERENCES users(id) ON DELETE CASCADE
 );
