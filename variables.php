@@ -17,7 +17,7 @@ $user = array();
 $db_host = "localhost";
 $db_user = "root";
 $db_password = "";
-$db_name = "helloworld";
+$db_name = "social_media_php";
 
 
 if (isset($_ENV["DB_HOST"])) {
